@@ -1,0 +1,42 @@
+
+<!--TOC-->
+
+ls -lT | 
+awk '{print "\""$10"\""";""\""$4" "$6"- "$9"\""";""\""$5"\""}' \
+> list.csv
+
+
+# Create a directory list in CSV format [![UNIX][1]][2]  
+Aug 30, '06 07:30:04AM • Contributed by: [HairyPotter][3]
+
+   [1]: http://hints.macworld.com/layout/hints1/images/topics/t_unix.png (UNIX)
+   [2]: http://hints.macworld.com/index.php?topic=unix
+   [3]: http://hints.macworld.com/users.php?mode=profile&uid=1037911
+
+>Sometimes you may need to get a sorted list of all files in a directory transformed in a database format, so, after getting the directory list you may end cutting and pasting the data to your database. On the other hand, there's an easy way to do that, if you just follow this tip. Open Terminal and type:
+
+	ls -lT | \
+	awk '{print "\""$10"\""";""\""$6" "$7", "$9"\""";""\""$5"\""}' \
+	| pbcopy
+
+ls -lT | \
+	awk '{print "\""$10"\""";""\""$6", "$7", "$9"\""";""\""$5"\""}' \
+	| pbcopy
+This will generate a CSV (comma-delimited) directory listing on the clipboard in the following format:
+
+	"Filename";"Creation Date";"Size"
+
+For example:
+
+	"a2p";"Mar 21, 2005";"104608"
+	"aclocal";"Mar 20, 2005";"12606"
+	"aclocal-1.6";"Mar 20, 2005";"12606"
+	"addftinfo";"Mar 20, 2005";"59852"
+	"afmtodit";"Mar 20, 2005";"165346"
+	"alias";"Mar 21, 2005";"147"
+	"appleping";"Mar 21, 2005";"19656"
+
+If you want to generate a file instead of sending the result to the clipboard, just replace the `| pbcopy` part with `> xxx`, where `xxx` is the file name you want to create.   
+
+[**robg adds:** When this hint was submitted, Geeklog killed the backslashes in the above command. After much trial and error, I believe I have them back where they need to be to generate the proper output. If there are errors, however, they are mine, not the original poster's. I also split the command onto three lines for a narrower display, but it should copy and paste.]
+
